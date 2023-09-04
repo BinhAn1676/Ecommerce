@@ -4,7 +4,10 @@ import com.ecommerce.library.dto.AdminDto;
 import com.ecommerce.library.model.Admin;
 import com.ecommerce.library.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.security.Principal;
 
 @Controller
 public class LoginController {
@@ -34,7 +38,10 @@ public class LoginController {
     }
 
     @RequestMapping("/index")
-    public String home(Model model){
+    public String home(Model model, Principal principal){
+        if(principal==null){//check login
+            return "redirect:/login";
+        }
         model.addAttribute("title","Home");
         return "index";
     }
