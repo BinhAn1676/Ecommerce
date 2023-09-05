@@ -49,6 +49,7 @@ public class CategoryController {
     @RequestMapping(value = "/findById",method = {RequestMethod.PUT,RequestMethod.GET})
     @ResponseBody
     public Category findById(Long id){
+        Category category = categoryService.findById(id);
         return categoryService.findById(id);
     }
 

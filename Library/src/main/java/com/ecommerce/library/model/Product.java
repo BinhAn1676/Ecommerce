@@ -18,7 +18,7 @@ public class Product {
     private Long id;
     private String name;
     private String description;
-    private Double costprice;
+    private Double costPrice;
 
     private Double salePrice;
     private Integer currentQuantity;
@@ -27,7 +27,7 @@ public class Product {
     @Column(columnDefinition = "MEDIUMBLOB")
     private String image;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id",referencedColumnName = "category_id")
     private Category category;
     private Boolean is_deleted;

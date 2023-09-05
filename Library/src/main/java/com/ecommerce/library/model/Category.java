@@ -22,8 +22,6 @@ public class Category {
     private Boolean is_deleted;
     private Boolean is_activated;
 
-    @OneToMany(mappedBy = "category",fetch =FetchType.EAGER, cascade = CascadeType.ALL,orphanRemoval = true)
-    private List<Product> products = new ArrayList<>();
 
     public Category(String name){
         this.name=name;
