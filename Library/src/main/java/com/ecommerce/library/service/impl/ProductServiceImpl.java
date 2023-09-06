@@ -6,6 +6,9 @@ import com.ecommerce.library.repository.ProductRepository;
 import com.ecommerce.library.service.ProductService;
 import com.ecommerce.library.utils.ImageUpload;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -70,7 +73,7 @@ public class ProductServiceImpl implements ProductService {
     public Product update(MultipartFile imageProduct,ProductDto productDto) {
         try{
             Product product = productRepository.findById(productDto.getId()).get();
-            if(imageProduct==null){
+            if(imageProduct.isEmpty()){
                 product.setImage(product.getImage());
             }else{
                 if(imageUpload.checkExisted(imageProduct)==false){
@@ -122,5 +125,12 @@ public class ProductServiceImpl implements ProductService {
         productDto.setDeleted(product.getIs_deleted());
         productDto.setActivated(product.getIs_activated());
         return productDto;
+    }
+
+    @Override
+    public Page<Product> pageProducts(Integer pageNo) {
+        Pageable pageable= PageRequest.of(pageNo,5);
+        Page<Product> pageProduct = productRepository.pageProduct(pageable);
+        return pageProduct;
     }
 }
