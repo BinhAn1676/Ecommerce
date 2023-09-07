@@ -26,13 +26,6 @@
 
             <!-- Begin Page Content -->
             <div class="container-fluid">
-                <div>
-                    <form th:action="@{/search-result/0}" method="GET">
-                        <input placeholder="Search product" id="search" type="text" name="keyword">
-                        <button type="submit" class="btn btn-primary">Search</button>
-                    </form>
-                </div>
-
                 <div th:if="${size == 0}" style="margin-left: 30px;">
                     <p>No product in shop</p>
                 </div>

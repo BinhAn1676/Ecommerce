@@ -9,6 +9,7 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
+        <module>Customer</module>
         <module>Library</module>
         <module>Admin</module>
     </modules>

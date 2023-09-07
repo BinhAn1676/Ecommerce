@@ -17,5 +17,6 @@ public interface ProductService {
 
     ProductDto findById(Long id);
 
-    Page<Product> pageProducts(Integer pageNo);
+    Page<ProductDto> pageProducts(Integer pageNo);
+    Page<ProductDto> searchProducts(Integer pageNo,String keyword);
 }

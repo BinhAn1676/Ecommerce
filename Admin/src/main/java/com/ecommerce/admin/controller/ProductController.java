@@ -42,7 +42,7 @@ public class ProductController {
         if(principal == null){
             return "redirect:/login";
         }else{
-            Page<Product> products = productService.pageProducts(pageNo);
+            Page<ProductDto> products = productService.pageProducts(pageNo);
             model.addAttribute("title","Manage Products");
             model.addAttribute("size",products.getSize());
             model.addAttribute("totalPages",products.getTotalPages());
@@ -74,6 +74,23 @@ public class ProductController {
             attributes.addFlashAttribute("error","Error server");
         }
         return "redirect:/products";
+    }
+
+    @GetMapping("/search-result/{pageNo}")
+    public String searchProducts(@PathVariable("pageNo")Integer pageNo,
+                                 Model model,
+                                 Principal principal,
+                                 @RequestParam("keyword")String keyword){
+        if(principal==null){
+            return "redirect:/login";
+        }
+        model.addAttribute("title","Search Result");
+        Page<ProductDto> products = productService.searchProducts(pageNo,keyword);
+        model.addAttribute("products",products);
+        model.addAttribute("size",products.getSize());
+        model.addAttribute("currentPage",pageNo);
+        model.addAttribute("totalPages",products.getTotalPages());
+        return "result-products";
     }
 
     @GetMapping("/update-product/{id}")
