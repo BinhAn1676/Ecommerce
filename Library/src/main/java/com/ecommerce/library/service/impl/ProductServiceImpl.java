@@ -159,4 +159,14 @@ public class ProductServiceImpl implements ProductService {
         Page<ProductDto> products = toPage(productDtos,pageable);
         return products;
     }
+
+    @Override
+    public List<Product> getAllProducts() {
+        return productRepository.getAllProducts();
+    }
+
+    @Override
+    public List<Product> listViewProducts() {
+        return productRepository.listViewProducts();
+    }
 }
