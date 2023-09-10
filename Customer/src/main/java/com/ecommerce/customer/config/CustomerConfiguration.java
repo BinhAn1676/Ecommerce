@@ -51,6 +51,7 @@ public class CustomerConfiguration extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/index")
                 .and()
                 .logout()
+                .deleteCookies("JSESSIONID")
                 .invalidateHttpSession(true)
                 .clearAuthentication(true)
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))

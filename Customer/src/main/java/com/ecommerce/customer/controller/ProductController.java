@@ -11,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.Calendar;
 import java.util.List;
 
 @Controller
@@ -57,4 +56,26 @@ public class ProductController {
         return "products-in-category";
     }
 
+    @GetMapping("/high-price")
+    public String filterHighPrice(Model model){
+        List<Product> products = productService.filterHighPrice();
+        List<Category> categories = categoryService.findAllByActivated();
+        List<CategoryDto> categoryDtos = categoryService.getCategoryAndProduct();
+        model.addAttribute("categoryDtoList",categoryDtos);
+        model.addAttribute("categories",categories);
+        model.addAttribute("products",products);
+        return "filter-high-price";
+    }
+
+
+    @GetMapping("/low-price")
+    public String filterLowPrice(Model model){
+        List<Product> products = productService.filterLowPrice();
+        List<Category> categories = categoryService.findAllByActivated();
+        List<CategoryDto> categoryDtos = categoryService.getCategoryAndProduct();
+        model.addAttribute("categoryDtoList",categoryDtos);
+        model.addAttribute("categories",categories);
+        model.addAttribute("products",products);
+        return "filter-low-price";
+    }
 }
