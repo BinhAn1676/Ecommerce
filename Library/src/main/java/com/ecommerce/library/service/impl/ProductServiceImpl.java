@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Transactional
     public Product save(MultipartFile imageProduct, ProductDto productDto) {
         try{
             Product product = new Product();
@@ -57,6 +59,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Transactional
     public Product update(MultipartFile imageProduct,ProductDto productDto) {
         try{
             Product product = productRepository.findById(productDto.getId()).get();
@@ -82,6 +85,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Transactional
     public void deleteById(Long id) {
         Product product = productRepository.findById(id).get();
         product.setIs_deleted(true);
@@ -90,6 +94,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Transactional
     public void enableById(Long id) {
         Product product = productRepository.findById(id).get();
         product.setIs_deleted(false);

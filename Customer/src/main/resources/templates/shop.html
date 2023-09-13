@@ -91,9 +91,7 @@
                                                 <h4 th:text="${productView.name}"></h4>
                                                 <h5 th:text="'$' + ${productView.costPrice}"></h5>
                                                 <p th:text="${productView.description}"></p>
-                                                <!--<a class="btn hvr-hover" href="#">Add to Cart</a>-->
-                                                <input type="hidden" th:value="${product.id}" name="id">
-                                                <input type="submit" class="cart" value="Add to Cart">
+                                                <a class="btn hvr-hover" href="#">Add to Cart</a>
                                             </div>
                                         </div>
                                     </div>
