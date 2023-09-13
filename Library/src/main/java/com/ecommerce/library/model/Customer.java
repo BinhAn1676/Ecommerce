@@ -27,9 +27,8 @@ public class Customer {
     private String phoneNumber;
     private String address;
 
-    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    @JoinColumn(name = "city_id", referencedColumnName = "city_id")
-    private City city;
+    @Column(name = "city")
+    private String city;
 
     @Lob
     @Column(name = "image",columnDefinition = "MEDIUMBLOB")
