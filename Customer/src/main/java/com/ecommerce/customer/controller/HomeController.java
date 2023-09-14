@@ -32,13 +32,18 @@ public class HomeController {
     @Autowired
     private CustomerService customerService;
 
-    @RequestMapping(value ="index",method = RequestMethod.GET)
+    @RequestMapping(value ="/index",method = RequestMethod.GET)
     public String home(Model model, Principal principal, HttpSession session){
         if(principal!=null){
             session.setAttribute("username",principal.getName());
             Customer customer= customerService.findByUsername(principal.getName());
             ShoppingCart cart = customer.getShoppingCart();
-            session.setAttribute("totalItems",cart.getTotalItem());
+            if(cart!=null){
+                session.setAttribute("totalItems",cart.getTotalItem());
+            }else{
+                session.setAttribute("totalItems",0);
+            }
+
         }else{
             session.removeAttribute("username");
         }

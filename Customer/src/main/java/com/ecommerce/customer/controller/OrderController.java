@@ -1,13 +1,18 @@
 package com.ecommerce.customer.controller;
 
 import com.ecommerce.library.model.Customer;
+import com.ecommerce.library.model.Order;
+import com.ecommerce.library.model.ShoppingCart;
 import com.ecommerce.library.service.CustomerService;
+import com.ecommerce.library.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 public class OrderController {
@@ -15,17 +20,45 @@ public class OrderController {
     @Autowired
     private CustomerService customerService;
 
+    @Autowired
+    private OrderService orderService;
+
     @GetMapping("/check-out")
     public String checkout(Model model, Principal principal) {
         if (principal == null) {
             return "redirect:/login";
         }
         Customer customer = customerService.findByUsername(principal.getName());
-        if (customer.getPhoneNumber().trim().isEmpty() || customer.getAddress().trim().isEmpty() || customer.getCity().trim().isEmpty() || customer.getCountry().trim().isEmpty()) {
+        if (customer.getPhoneNumber() ==null || customer.getAddress() ==null || customer.getCity()==null || customer.getCountry()==null) {
             model.addAttribute("customer",customer);
             model.addAttribute("error","you must fill in the address so we can ship it to you");
             return "account";
+        }else{
+            model.addAttribute("customer",customer);
+            ShoppingCart cart = customer.getShoppingCart();
+            model.addAttribute("cart",cart);
         }
         return "checkout";
+    }
+    @GetMapping("/order")
+    public String order(Principal principal, Model model){
+        if(principal==null){
+            return"redirect:/login";
+        }
+        Customer customer = customerService.findByUsername(principal.getName());
+        List<Order> orders = customer.getOrders();
+        model.addAttribute("orders",orders);
+        return "order";
+    }
+
+    @GetMapping("/save-order")
+    public String saveOrder(Principal principal, Model model){
+        if(principal==null){
+            return"redirect:/login";
+        }
+        Customer customer = customerService.findByUsername(principal.getName());
+        ShoppingCart cart = customer.getShoppingCart();
+        orderService.saveOrder(cart);
+        return"redirect:/order";
     }
 }

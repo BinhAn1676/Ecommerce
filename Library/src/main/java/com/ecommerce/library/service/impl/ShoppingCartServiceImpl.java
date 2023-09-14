@@ -99,6 +99,17 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         return shoppingCartRepository.save(cart);
     }
 
+    @Override
+    @Transactional
+    public void deleteCartById(Long id,Customer customer) {
+        ShoppingCart shoppingCart = shoppingCartRepository.getById(id);
+        for (CartItem cartItem : shoppingCart.getCartItem()) {
+            CartItem temp = cartItem;
+            cartItemRepository.delete(temp);
+        }
+        shoppingCartRepository.delete(shoppingCart);
+    }
+
     private CartItem findCartItems(Set<CartItem> cartItems,Long productId){
         if(cartItems== null){
             return null;

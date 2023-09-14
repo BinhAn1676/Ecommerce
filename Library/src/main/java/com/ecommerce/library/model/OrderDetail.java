@@ -22,7 +22,7 @@ public class OrderDetail {
 
     private Double unitPrice;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id",referencedColumnName = "order_id")
     private Order order;
 
