@@ -1,6 +1,6 @@
 # Ecommerce
 Muti-modul project Ecommerce
-Classic Ecommerce project
+
 A website for both admin to control all the products and customers to buy stuffs
 the Admin module control the admin site which can edit products for the customer page 
 the Customer module is for the customers to buy and pre-order all the food which are shown out 
